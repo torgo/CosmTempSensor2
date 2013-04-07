@@ -15,7 +15,7 @@
  * created 8th January, 2013 using code written by Adrian McEwen with
  * modifications by Sam Mulube
  *
- * Full tutorial available here: https://cosm.com/docs/quickstart/arduino.html
+ * Full cosm tutorial available here: https://cosm.com/docs/quickstart/arduino.html
  *
  * This code is in the public domain.
  */
