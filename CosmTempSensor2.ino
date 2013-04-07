@@ -1,20 +1,18 @@
 /**
- * Cosm Arduino sensor client example.
+ * Cosm Arduino sensor GSM client example.
  *
  * This sketch demonstrates connecting an Arduino to Cosm (https://cosm.com),
- * using the new Arduino library to send and receive data.
+ * using the new Arduino library to send and receive data and the new GSM library.
  *
  * Requirements
- *   * Arduino with Ethernet shield or Arduino Ethernet (board must use the
- *     Wiznet Ethernet chipset)
+ *   * Arduino with (Telefonica-designed) GSM shield
  *   * Arduino software with version >= 1.0
  *   * An account at Cosm (https://cosm.com)
  *
- * Optional
- *   * An analog sensor connected to pin 2 (note we can still read a value from
- *     the pin without this)
+ *   * A temperature sensor connected to pin 3
  *
- * Created 8th January, 2013 using code written by Adrian McEwen with
+ * Adapted 1 April 2013 by Dan Appelquist from a sample program
+ * created 8th January, 2013 using code written by Adrian McEwen with
  * modifications by Sam Mulube
  *
  * Full tutorial available here: https://cosm.com/docs/quickstart/arduino.html
@@ -24,14 +22,13 @@
 
 #include <Cosm.h>
 #include <HttpClient.h>
-// #include <SPI.h>
 #include <GSM.h>
 
-#define API_KEY "8bePI6m3m3kjklpXw0MYxu9vtsuSAKxiL3dwUTVHb2QyTT0g" // your Cosm API key
-#define FEED_ID 121725 // your Cosm feed ID
+#define API_KEY "" // your Cosm API key
+#define FEED_ID xxxxx // your Cosm feed ID
 
 // PIN Number
-#define PINNUMBER ""
+#define PINNUMBER "" // your sim PIN number if you have one (most don't)
 
 // APN data
 #define GPRS_APN       "bluevia.movistar.es"  // replace your GPRS APN
@@ -67,8 +64,8 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
 
-  Serial.println("Cosm Sensor Client Example");
-  Serial.println("==========================");
+  Serial.println("GSM Cosm Sensor Client Example");
+  Serial.println("==============================");
 
 }
 
@@ -103,11 +100,11 @@ void loop() {
 
     // send it to Cosm
     sendData(temperature);
-    // read the datastream back from Cosm
-    // getData();
+
     // disconnect the GPRS connection
     Serial.println("Network disconnected");  
     client.stop();  
+
     // update connection time so we wait before connecting again
     lastConnectionTime = millis();
   }
@@ -129,6 +126,7 @@ void sendData(float sensorValue) {
 }
 
 // get the value of the datastream from Cosm, printing out the value we received
+// not used for this sample but useful if you want to get data back from cosm
 void getData() {
   Serial.println("Reading data from Cosm");
 
